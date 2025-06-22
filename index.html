@@ -13,10 +13,14 @@
       padding: 15px 30px;
       font-size: 20px;
       margin: 10px;
+      transition: all 0.5s ease;
     }
     #evet {
       font-size: 40px;
       display: none;
+      width: auto;
+      height: auto;
+      line-height: normal;
     }
   </style>
 </head>
@@ -27,7 +31,12 @@
 
   <script>
     document.getElementById("hayir").onclick = function() {
-      document.getElementById("evet").style.display = "inline-block";
+      const evetBtn = document.getElementById("evet");
+      evetBtn.style.display = "inline-block";
+      evetBtn.style.fontSize = "100vw";
+      evetBtn.style.width = "100vw";
+      evetBtn.style.height = "100vh";
+      evetBtn.style.lineHeight = "100vh";
     };
   </script>
 </body>
