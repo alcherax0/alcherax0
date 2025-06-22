@@ -14,21 +14,33 @@
     #container {
       display: inline-block;
       position: relative;
+      width: 160px;
     }
     button {
       padding: 15px 30px;
       font-size: 20px;
-      margin: 10px;
+      margin: 10px 0;
       display: block;
       width: 150px;
       position: relative;
       z-index: 1;
-      transition: font-size 0.3s ease;
+      background-color: #ffc0cb;
+      border: none;
+      border-radius: 8px;
+      color: #800040;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: font-size 0.3s ease, transform 0.5s ease;
+    }
+    button:hover {
+      background-color: #ffb6c1;
     }
     #evet {
       font-size: 40px;
       margin-top: 10px;
       z-index: 2;
+      background-color: #ff69b4;
+      color: white;
     }
   </style>
 </head>
@@ -46,18 +58,23 @@
     const container = document.getElementById("container");
 
     hayirBtn.onclick = function() {
+      // Hayır tuşunu yok etmeden önce evet tuşunu büyütmeye başla
       let currentSize = parseInt(window.getComputedStyle(evetBtn).fontSize);
-      let newSize = currentSize + 10;
+      let newSize = currentSize + 40;
       evetBtn.style.fontSize = newSize + "px";
 
-      // Evet butonu büyüdükçe hayır butonunu üstüne kapatacak şekilde konumlandır
-      if(newSize > 40) {
-        hayirBtn.style.position = "absolute";
-        hayirBtn.style.top = (evetBtn.offsetHeight - newSize / 2) + "px";
-        hayirBtn.style.left = "0";
-        hayirBtn.style.zIndex = "0";
-        evetBtn.style.zIndex = "1";
-      }
+      // Hayır butonunu büyüyen evet butonuyla aynı konuma taşı ve küçülerek yok et
+      hayirBtn.style.position = "absolute";
+      hayirBtn.style.top = "0";
+      hayirBtn.style.left = "0";
+      hayirBtn.style.transition = "transform 0.5s ease, opacity 0.5s ease";
+      hayirBtn.style.transformOrigin = "center";
+      hayirBtn.style.transform = "scale(0)";
+      hayirBtn.style.opacity = "0";
+
+      setTimeout(() => {
+        hayirBtn.remove();
+      }, 500);
     };
 
     evetBtn.onclick = function() {
