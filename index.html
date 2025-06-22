@@ -8,17 +8,21 @@
       text-align: center;
       margin-top: 100px;
       font-family: sans-serif;
-      background-color: white; /* Arka plan rengini buradan değiştir */
+      background-color: pink;
+      overflow-x: hidden;
     }
     button {
       padding: 15px 30px;
       font-size: 20px;
       margin: 10px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
     #evet {
       font-size: 40px;
-      display: inline-block; /* Her zaman görünür olsun */
       transition: font-size 0.3s ease;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -38,27 +42,37 @@
     };
 
     evetBtn.onclick = function() {
-      baslik.textContent = "Canımmm 💖💖💖";
+      baslik.textContent = "Canımsın 💖💖";
       evetBtn.disabled = true;
       hayirBtn.disabled = true;
       for(let i=0; i<20; i++) {
-        createHeart();
+        createFallingHeart();
       }
     };
 
-    function createHeart() {
+    function createFallingHeart() {
       const heart = document.createElement("div");
       heart.textContent = "❤️";
       heart.style.position = "fixed";
-      heart.style.left = Math.random() * window.innerWidth + "px";
-      heart.style.top = Math.random() * window.innerHeight + "px";
+      heart.style.left = Math.random() * (window.innerWidth - 30) + "px";
+      heart.style.top = "-30px";
       heart.style.fontSize = "24px";
       heart.style.pointerEvents = "none";
+      heart.style.userSelect = "none";
       document.body.appendChild(heart);
 
-      setTimeout(() => {
-        heart.remove();
-      }, 2000);
+      let pos = -30;
+      const fallSpeed = 2 + Math.random() * 3;
+      function fall() {
+        if(pos < window.innerHeight + 30) {
+          pos += fallSpeed;
+          heart.style.top = pos + "px";
+          requestAnimationFrame(fall);
+        } else {
+          heart.remove();
+        }
+      }
+      fall();
     }
   </script>
 </body>
