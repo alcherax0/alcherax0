@@ -1,0 +1,35 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Barışalım mı?</title>
+  <style>
+    body {
+      text-align: center;
+      margin-top: 100px;
+      font-family: sans-serif;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 20px;
+      margin: 10px;
+    }
+    #evet {
+      font-size: 40px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Barışalım mı?</h1>
+  <button id="hayir">Hayır</button>
+  <button id="evet">Evet</button>
+
+  <script>
+    document.getElementById("hayir").onclick = function() {
+      document.getElementById("evet").style.display = "inline-block";
+    };
+  </script>
+</body>
+</html>
+```
