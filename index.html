@@ -13,7 +13,7 @@
       padding: 15px 30px;
       font-size: 20px;
       margin: 10px;
-      transition: all 0.5s ease;
+      transition: all 1.5s ease;
     }
     #evet {
       font-size: 40px;
@@ -21,6 +21,8 @@
       width: auto;
       height: auto;
       line-height: normal;
+      transition: all 3s ease;
+      overflow: hidden;
     }
   </style>
 </head>
@@ -33,10 +35,20 @@
     document.getElementById("hayir").onclick = function() {
       const evetBtn = document.getElementById("evet");
       evetBtn.style.display = "inline-block";
-      evetBtn.style.fontSize = "100vw";
-      evetBtn.style.width = "100vw";
-      evetBtn.style.height = "100vh";
-      evetBtn.style.lineHeight = "100vh";
+
+      // Başlangıç küçüklüğü
+      evetBtn.style.fontSize = "40px";
+      evetBtn.style.width = "auto";
+      evetBtn.style.height = "auto";
+      evetBtn.style.lineHeight = "normal";
+
+      // Küçük bir gecikmeden sonra büyüt
+      setTimeout(() => {
+        evetBtn.style.fontSize = "100vw";
+        evetBtn.style.width = "100vw";
+        evetBtn.style.height = "100vh";
+        evetBtn.style.lineHeight = "100vh";
+      }, 100); // 100ms sonra başla
     };
   </script>
 </body>
