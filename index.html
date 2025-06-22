@@ -11,34 +11,53 @@
       background-color: pink;
       overflow-x: hidden;
     }
+    #container {
+      display: inline-block;
+      position: relative;
+    }
     button {
       padding: 15px 30px;
       font-size: 20px;
       margin: 10px;
       display: block;
-      margin-left: auto;
-      margin-right: auto;
+      width: 150px;
+      position: relative;
+      z-index: 1;
+      transition: font-size 0.3s ease;
     }
     #evet {
       font-size: 40px;
-      transition: font-size 0.3s ease;
       margin-top: 10px;
+      z-index: 2;
     }
   </style>
 </head>
 <body>
   <h1 id="baslik">Barışalım mı?</h1>
-  <button id="hayir">Hayır</button>
-  <button id="evet">Evet</button>
+  <div id="container">
+    <button id="hayir">Hayır</button>
+    <button id="evet">Evet</button>
+  </div>
 
   <script>
     const evetBtn = document.getElementById("evet");
     const hayirBtn = document.getElementById("hayir");
     const baslik = document.getElementById("baslik");
+    const container = document.getElementById("container");
 
     hayirBtn.onclick = function() {
       let currentSize = parseInt(window.getComputedStyle(evetBtn).fontSize);
-      evetBtn.style.fontSize = (currentSize + 10) + "px";
+      let newSize = currentSize + 10;
+      evetBtn.style.fontSize = newSize + "px";
+
+      // Evet butonu büyüdükçe hayır butonunu üstüne kapatacak şekilde konumlandır
+      if(newSize > 40) {
+        hayirBtn.style.position = "absolute";
+        hayirBtn.style.top = (evetBtn.offsetHeight - newSize / 2) + "px";
+        hayirBtn.style.left = "0";
+        hayirBtn.style.zIndex = "0";
+        evetBtn.style.zIndex = "1";
+      }
     };
 
     evetBtn.onclick = function() {
