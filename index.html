@@ -21,8 +21,9 @@
       width: auto;
       height: auto;
       line-height: normal;
-      transition: all 3s ease;
+      transition: all 1.5s ease;
       overflow: hidden;
+      white-space: nowrap;
     }
   </style>
 </head>
@@ -32,23 +33,21 @@
   <button id="evet">Evet</button>
 
   <script>
-    document.getElementById("hayir").onclick = function() {
-      const evetBtn = document.getElementById("evet");
-      evetBtn.style.display = "inline-block";
+    const hayirBtn = document.getElementById("hayir");
+    const evetBtn = document.getElementById("evet");
+    let size = 40; // başlangıç font büyüklüğü px
 
-      // Başlangıç küçüklüğü
-      evetBtn.style.fontSize = "40px";
-      evetBtn.style.width = "auto";
-      evetBtn.style.height = "auto";
-      evetBtn.style.lineHeight = "normal";
+    hayirBtn.onclick = function() {
+      if (evetBtn.style.display === "none" || evetBtn.style.display === "") {
+        evetBtn.style.display = "inline-block";
+      }
+      size += 20; // her tıklamada 20px büyüt
+      evetBtn.style.fontSize = size + "px";
 
-      // Küçük bir gecikmeden sonra büyüt
-      setTimeout(() => {
-        evetBtn.style.fontSize = "100vw";
-        evetBtn.style.width = "100vw";
-        evetBtn.style.height = "100vh";
-        evetBtn.style.lineHeight = "100vh";
-      }, 100); // 100ms sonra başla
+      // İstersen genişlik ve yükseklikle de oynayabilirsin
+      evetBtn.style.width = size * 2 + "px";
+      evetBtn.style.height = size * 1.2 + "px";
+      evetBtn.style.lineHeight = size * 1.2 + "px";
     };
   </script>
 </body>
