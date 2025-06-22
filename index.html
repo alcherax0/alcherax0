@@ -8,47 +8,58 @@
       text-align: center;
       margin-top: 100px;
       font-family: sans-serif;
+      background-color: white; /* Arka plan rengini buradan değiştir */
     }
     button {
       padding: 15px 30px;
       font-size: 20px;
       margin: 10px;
-      transition: all 1.5s ease;
     }
     #evet {
       font-size: 40px;
-      display: none;
-      width: auto;
-      height: auto;
-      line-height: normal;
-      transition: all 1.5s ease;
-      overflow: hidden;
-      white-space: nowrap;
+      display: inline-block; /* Her zaman görünür olsun */
+      transition: font-size 0.3s ease;
     }
   </style>
 </head>
 <body>
-  <h1>Barışalım mı?</h1>
+  <h1 id="baslik">Barışalım mı?</h1>
   <button id="hayir">Hayır</button>
   <button id="evet">Evet</button>
 
   <script>
-    const hayirBtn = document.getElementById("hayir");
     const evetBtn = document.getElementById("evet");
-    let size = 40; // başlangıç font büyüklüğü px
+    const hayirBtn = document.getElementById("hayir");
+    const baslik = document.getElementById("baslik");
 
     hayirBtn.onclick = function() {
-      if (evetBtn.style.display === "none" || evetBtn.style.display === "") {
-        evetBtn.style.display = "inline-block";
-      }
-      size += 20; // her tıklamada 20px büyüt
-      evetBtn.style.fontSize = size + "px";
-
-      // İstersen genişlik ve yükseklikle de oynayabilirsin
-      evetBtn.style.width = size * 2 + "px";
-      evetBtn.style.height = size * 1.2 + "px";
-      evetBtn.style.lineHeight = size * 1.2 + "px";
+      let currentSize = parseInt(window.getComputedStyle(evetBtn).fontSize);
+      evetBtn.style.fontSize = (currentSize + 10) + "px";
     };
+
+    evetBtn.onclick = function() {
+      baslik.textContent = "Canımmm 💖💖💖";
+      evetBtn.disabled = true;
+      hayirBtn.disabled = true;
+      for(let i=0; i<20; i++) {
+        createHeart();
+      }
+    };
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.textContent = "❤️";
+      heart.style.position = "fixed";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.top = Math.random() * window.innerHeight + "px";
+      heart.style.fontSize = "24px";
+      heart.style.pointerEvents = "none";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 2000);
+    }
   </script>
 </body>
 </html>
