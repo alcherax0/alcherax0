@@ -2,114 +2,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Barışalım mı?</title>
+  <title>Berfinim Barışalımmı?</title>
   <style>
     body {
-      text-align: center;
-      margin-top: 100px;
-      font-family: sans-serif;
       background-color: pink;
-      overflow-x: hidden;
+      text-align: center;
+      font-family: sans-serif;
+      padding-top: 100px;
     }
-    #container {
-      display: inline-block;
-      position: relative;
-      width: 160px;
+    h1 {
+      font-size: 40px;
+      transition: all 0.3s ease;
     }
     button {
       padding: 15px 30px;
       font-size: 20px;
-      margin: 10px 0;
-      display: block;
-      width: 150px;
-      position: relative;
-      z-index: 1;
-      background-color: #ffc0cb;
+      margin: 20px;
       border: none;
-      border-radius: 8px;
-      color: #800040;
+      border-radius: 10px;
       cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      transition: font-size 0.3s ease, transform 0.5s ease;
-    }
-    button:hover {
-      background-color: #ffb6c1;
+      transition: all 0.3s ease;
     }
     #evet {
-      font-size: 40px;
-      margin-top: 10px;
-      z-index: 2;
       background-color: #ff69b4;
       color: white;
+    }
+    #hayir {
+      background-color: #ccc;
     }
   </style>
 </head>
 <body>
-  <h1 id="baslik">Barışalım mı?</h1>
-  <div id="container">
-    <button id="hayir">Hayır</button>
-    <button id="evet">Evet</button>
-  </div>
+  <h1 id="baslik">Berfinim 💖<br>Barışalımmı?</h1>
+  <button id="evet">Evet 💖</button>
+  <button id="hayir">Hayır 🙁</button>
+
+  <audio autoplay loop>
+    <source src="https://dl.sndup.net/6d7c/I%20Wanna%20Be%20Yours.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
+    let hayirCount = 0;
     const evetBtn = document.getElementById("evet");
-    const hayirBtn = document.getElementById("hayir");
     const baslik = document.getElementById("baslik");
-    const container = document.getElementById("container");
+    const sorular = [
+      "Emin misin?",
+      "Gerçekten mi?",
+      "Bir daha düşün...",
+      "Bak çok üzülürüm 😢",
+      "Son kararın mı?",
+      "Berfinim Barışalımmı?"
+    ];
 
-    hayirBtn.onclick = function() {
-      // Hayır tuşunu yok etmeden önce evet tuşunu büyütmeye başla
-      let currentSize = parseInt(window.getComputedStyle(evetBtn).fontSize);
-      let newSize = currentSize + 40;
-      evetBtn.style.fontSize = newSize + "px";
-
-      // Hayır butonunu büyüyen evet butonuyla aynı konuma taşı ve küçülerek yok et
-      hayirBtn.style.position = "absolute";
-      hayirBtn.style.top = "0";
-      hayirBtn.style.left = "0";
-      hayirBtn.style.transition = "transform 0.5s ease, opacity 0.5s ease";
-      hayirBtn.style.transformOrigin = "center";
-      hayirBtn.style.transform = "scale(0)";
-      hayirBtn.style.opacity = "0";
-
-      setTimeout(() => {
-        hayirBtn.remove();
-      }, 500);
+    document.getElementById("hayir").onclick = function () {
+      hayirCount++;
+      let currentSize = parseFloat(window.getComputedStyle(evetBtn).fontSize);
+      evetBtn.style.fontSize = (currentSize + 4) + "px";
+      let soruIndex = hayirCount % sorular.length;
+      baslik.innerHTML = sorular[soruIndex];
     };
 
-    evetBtn.onclick = function() {
-      baslik.textContent = "Canımsın 💖💖";
-      evetBtn.disabled = true;
-      hayirBtn.disabled = true;
-      for(let i=0; i<20; i++) {
-        createFallingHeart();
-      }
+    document.getElementById("evet").onclick = function () {
+      document.body.innerHTML = "<h1>Canımsın 💖💖</h1><p>Her şey yeniden başlıyor...</p>";
     };
-
-    function createFallingHeart() {
-      const heart = document.createElement("div");
-      heart.textContent = "❤️";
-      heart.style.position = "fixed";
-      heart.style.left = Math.random() * (window.innerWidth - 30) + "px";
-      heart.style.top = "-30px";
-      heart.style.fontSize = "24px";
-      heart.style.pointerEvents = "none";
-      heart.style.userSelect = "none";
-      document.body.appendChild(heart);
-
-      let pos = -30;
-      const fallSpeed = 2 + Math.random() * 3;
-      function fall() {
-        if(pos < window.innerHeight + 30) {
-          pos += fallSpeed;
-          heart.style.top = pos + "px";
-          requestAnimationFrame(fall);
-        } else {
-          heart.remove();
-        }
-      }
-      fall();
-    }
   </script>
 </body>
 </html>
